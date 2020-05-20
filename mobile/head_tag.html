@@ -134,11 +134,13 @@
 
     actions: {
       navigate(tab) {
-        if (tab.destination === 'babble') {
+        if (document.querySelector('.babble-sidebar-collapsed') && tab.destination === 'babble') {
           highlight(tab.destination);
           return this.appEvents.trigger('babble-toggle-chat');
+        } else if (tab.destination !== 'babble') {
+          this.appEvents.trigger('babble-toggle-chat');
         }
-      
+
         const destination = tab.destination;
         let url = destination;
         if (router.hasRoute(destination)) {
