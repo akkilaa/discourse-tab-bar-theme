@@ -134,8 +134,13 @@
 
     actions: {
       navigate(tab) {
+        if (tab.destination === 'babble') {
+          return this.appEvents.trigger('babble-toggle-chat')
+        }
+      
         const destination = tab.destination;
         let url = destination;
+        
         if (router.hasRoute(destination)) {
           url = this.routeToURL(destination);
         }
