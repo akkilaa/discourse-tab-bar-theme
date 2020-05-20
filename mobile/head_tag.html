@@ -135,7 +135,8 @@
     actions: {
       navigate(tab) {
         if (tab.destination === 'babble') {
-          return this.appEvents.trigger('babble-toggle-chat')
+          highlight(tab.destination);
+          return this.appEvents.trigger('babble-toggle-chat');
         }
       
         const destination = tab.destination;
