@@ -135,7 +135,7 @@
     actions: {
       navigate(tab) {
         if (tab.destination === 'babble') {
-          if (!document.querySelector('.babble-sidebar-collapsed')) {
+          if (document.querySelector('.babble-sidebar-collapsed')) {
             highlight(tab.destination);
           }
           return this.appEvents.trigger('babble-toggle-chat');
