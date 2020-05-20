@@ -25,7 +25,7 @@
 
   tabs.forEach(tab => {
     if (!user) return;
-    if (tab.destination.indexOf("/") !== -1) return;
+    if (tab.destination.indexOf("/") !== -1 || tab.destination === 'babble') return;
     // we need this to highlight tab when you navigate to
     // a subroute of a tab's route
     api.container.lookup(`route:${tab.destination}`).reopen({
@@ -140,7 +140,6 @@
       
         const destination = tab.destination;
         let url = destination;
-        
         if (router.hasRoute(destination)) {
           url = this.routeToURL(destination);
         }
