@@ -53,6 +53,6 @@ html:not(.anon) {
 }
 
 .babble-sidebar.mobile {
-  height: calc(100% - $bar-height);
+  height: calc(100% - #{$bar-height});
   margin-bottom: $bar-height;
 }
