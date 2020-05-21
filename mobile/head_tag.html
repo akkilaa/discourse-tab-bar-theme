@@ -120,11 +120,13 @@
       });
 
       api.onAppEvent("babble-toggle-chat", () => {
-        if (document.querySelector('.babble-sidebar-collapsed')) {
-          highlight('babble')
-        } else {
-          highlight()
-        }
+        Ember.run.scheduleOnce("afterRender", () => {
+          if (document.querySelector(".babble-sidebar-collapsed")) {
+            highlight();
+          } else {
+            highlight("babble");
+          }
+        });
       });
 
       api.onAppEvent("page:changed", data => {
