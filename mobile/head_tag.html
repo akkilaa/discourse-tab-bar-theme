@@ -122,9 +122,9 @@
       api.onAppEvent("babble-toggle-chat", () => {
         Ember.run.scheduleOnce("afterRender", () => {
           if (document.querySelector(".babble-sidebar-collapsed")) {
-            highlight();
-          } else {
             highlight("babble");
+          } else {
+            highlight();
           }
         });
       });
