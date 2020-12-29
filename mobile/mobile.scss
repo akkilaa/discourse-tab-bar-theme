@@ -56,3 +56,21 @@ html:not(.anon) {
   height: calc(100% - #{$bar-height});
   margin-bottom: $bar-height;
 }
+
+
+.babble-sidebar.mobile {
+  height: calc(100% - #{$bar-height});
+  margin-bottom: $bar-height;
+}
+
+a[data-destination="babble"] {
+  flex-direction:row!important;
+}
+
+a[data-destination="babble"] .widget-link.babble-unread.babble-unread--header {
+    position:static;
+    margin-bottom:25px;
+}
+#babble-icon{
+    display:none;
+}

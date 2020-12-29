@@ -1,6 +1,7 @@
 <script type="text/discourse-plugin" version="0.8.13">
 (function() {
   const tabs = [];
+  let notificationCount
   const router = api.container.lookup("router:main");
   [
     settings.tab_1_settings,
@@ -122,9 +123,9 @@
       api.onAppEvent("babble-toggle-chat", () => {
         Ember.run.scheduleOnce("afterRender", () => {
           if (document.querySelector(".babble-sidebar-collapsed")) {
-            highlight("babble");
-          } else {
             highlight();
+          } else {
+            highlight("babble");
           }
         });
       });
@@ -140,6 +141,40 @@
           highlight(tab.destination);
         }
       });
+      api.onAppEvent("babble-rerender", data => {
+          Ember.run.scheduleOnce("afterRender", () => {
+        const headerMenu = document.querySelector(".d-header-wrap");
+        
+        notificationCount = (headerMenu.querySelector(".widget-link.babble-unread.babble-unread--header span") || {}).innerHTML
+
+        const buttonTabs = document.getElementsByClassName(
+          "above-footer-outlet d-tab-bar-theme ember-view "
+        );
+        const babbleChatTab = $(buttonTabs).find(`[data-destination="babble"]`);
+        if (notificationCount) {
+          if (
+            $(babbleChatTab).find(
+              `.widget-link.babble-unread.babble-unread--header span`
+            )[0]
+          ) {
+            let message = $(babbleChatTab).find(
+              `.widget-link.babble-unread.babble-unread--header span`
+            );
+            message.html(`${notificationCount}`);
+            return;
+          }
+          $(
+            `<a class="widget-link babble-unread babble-unread--header" title="${notificationCount}"><span class="d-label">${notificationCount}</span></a>`
+          ).insertAfter($(babbleChatTab.find("svg")));
+        } else {
+          $(babbleChatTab)
+            .find(`.widget-link.babble-unread.babble-unread--header`)
+            .remove();
+        }
+
+        });
+      })
+
     },
 
     actions: {
